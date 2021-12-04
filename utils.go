@@ -396,6 +396,9 @@ func (s *Storage) formatPutObjectInput(path string, size int64, opt pairStorageW
 	if opt.HasContentMd5 {
 		input.ContentMD5 = &opt.ContentMd5
 	}
+	if opt.HasContentType {
+		input.ContentType = &opt.ContentType
+	}
 	if opt.HasStorageClass {
 		input.StorageClass = &opt.StorageClass
 	}
