@@ -399,6 +399,12 @@ func (s *Storage) formatPutObjectInput(path string, size int64, opt pairStorageW
 	if opt.HasContentType {
 		input.ContentType = &opt.ContentType
 	}
+	if opt.HasCacheControl {
+		input.CacheControl = &opt.CacheControl
+	}
+	if opt.HasContentEncoding {
+		input.ContentEncoding = &opt.ContentEncoding
+	}
 	if opt.HasStorageClass {
 		input.StorageClass = &opt.StorageClass
 	}

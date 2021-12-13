@@ -1232,6 +1232,10 @@ type pairStorageQuerySignHTTPWrite struct {
 	ServerSideEncryptionCustomerKey          []byte
 	HasStorageClass                          bool
 	StorageClass                             string
+	HasCacheControl                          bool
+	CacheControl                             string
+	HasContentEncoding                       bool
+	ContentEncoding                          string
 }
 
 func (s *Storage) parsePairStorageQuerySignHTTPWrite(opts []Pair) (pairStorageQuerySignHTTPWrite, error) {
@@ -1300,6 +1304,18 @@ func (s *Storage) parsePairStorageQuerySignHTTPWrite(opts []Pair) (pairStorageQu
 			}
 			result.HasStorageClass = true
 			result.StorageClass = v.Value.(string)
+		case "cache_control":
+			if result.HasCacheControl {
+				continue
+			}
+			result.HasCacheControl = true
+			result.CacheControl = v.Value.(string)
+		case "content_encoding":
+			if result.HasContentEncoding {
+				continue
+			}
+			result.HasContentEncoding = true
+			result.ContentEncoding = v.Value.(string)
 		default:
 			return pairStorageQuerySignHTTPWrite{}, services.PairUnsupportedError{Pair: v}
 		}
@@ -1482,6 +1498,10 @@ type pairStorageWrite struct {
 	ServerSideEncryptionCustomerKey          []byte
 	HasStorageClass                          bool
 	StorageClass                             string
+	HasCacheControl                          bool
+	CacheControl                             string
+	HasContentEncoding                       bool
+	ContentEncoding                          string
 }
 
 func (s *Storage) parsePairStorageWrite(opts []Pair) (pairStorageWrite, error) {
@@ -1556,6 +1576,18 @@ func (s *Storage) parsePairStorageWrite(opts []Pair) (pairStorageWrite, error) {
 			}
 			result.HasStorageClass = true
 			result.StorageClass = v.Value.(string)
+		case "cache_control":
+			if result.HasCacheControl {
+				continue
+			}
+			result.HasCacheControl = true
+			result.CacheControl = v.Value.(string)
+		case "content_encoding":
+			if result.HasContentEncoding {
+				continue
+			}
+			result.HasContentEncoding = true
+			result.ContentEncoding = v.Value.(string)
 		default:
 			return pairStorageWrite{}, services.PairUnsupportedError{Pair: v}
 		}
