@@ -1162,6 +1162,8 @@ type pairStorageQuerySignHTTPRead struct {
 	ServerSideEncryptionCustomerKey          []byte
 	HasSize                                  bool
 	Size                                     int64
+	HasResponseContentDisposition 		     bool
+	ResponseContentDisposition 			     string
 }
 
 func (s *Storage) parsePairStorageQuerySignHTTPRead(opts []Pair) (pairStorageQuerySignHTTPRead, error) {
@@ -1200,6 +1202,12 @@ func (s *Storage) parsePairStorageQuerySignHTTPRead(opts []Pair) (pairStorageQue
 			}
 			result.HasSize = true
 			result.Size = v.Value.(int64)
+		case "response_content_disposition":
+			if result.HasResponseContentDisposition {
+				continue
+			}
+			result.HasResponseContentDisposition = true
+			result.ResponseContentDisposition = v.Value.(string)
 		default:
 			return pairStorageQuerySignHTTPRead{}, services.PairUnsupportedError{Pair: v}
 		}
