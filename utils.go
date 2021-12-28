@@ -371,6 +371,10 @@ func (s *Storage) formatGetObjectInput(path string, opt pairStorageRead) (input 
 		input.Range = aws.String(fmt.Sprintf("bytes=0-%d", opt.Size-1))
 	}
 
+	if opt.HasResponseContentDisposition {
+		input.ResponseContentDisposition = &opt.ResponseContentDisposition
+	}
+
 	if opt.HasExceptedBucketOwner {
 		input.ExpectedBucketOwner = &opt.ExceptedBucketOwner
 	}
