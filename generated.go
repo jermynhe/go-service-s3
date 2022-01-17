@@ -858,6 +858,8 @@ type pairStorageCreateMultipart struct {
 	ServerSideEncryptionCustomerAlgorithm    string
 	HasServerSideEncryptionCustomerKey       bool
 	ServerSideEncryptionCustomerKey          []byte
+	HasContentType 						     bool
+	ContentType 						     string
 }
 
 func (s *Storage) parsePairStorageCreateMultipart(opts []Pair) (pairStorageCreateMultipart, error) {
@@ -908,6 +910,12 @@ func (s *Storage) parsePairStorageCreateMultipart(opts []Pair) (pairStorageCreat
 			}
 			result.HasServerSideEncryptionCustomerKey = true
 			result.ServerSideEncryptionCustomerKey = v.Value.([]byte)
+		case "content_type":
+			if result.HasContentType {
+				continue
+			}
+			result.HasContentType = true
+			result.ContentType = v.Value.(string)
 		default:
 			return pairStorageCreateMultipart{}, services.PairUnsupportedError{Pair: v}
 		}

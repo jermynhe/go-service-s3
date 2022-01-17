@@ -508,7 +508,9 @@ func (s *Storage) formatCreateMultipartUploadInput(path string, opt pairStorageC
 	if opt.HasServerSideEncryption {
 		input.ServerSideEncryption = &opt.ServerSideEncryption
 	}
-
+	if opt.HasContentType {
+		input.ContentType = &opt.ContentType
+	}
 	return
 }
 
